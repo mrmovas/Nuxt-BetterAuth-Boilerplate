@@ -33,6 +33,8 @@ async function handleLogin() {
             }
         } else {
             emit('success', result.message)
+            email.value = ''
+            password.value = ''
             navigateTo('/') // Redirect to home or dashboard after successful login
         }
     } catch (e: any) {
@@ -97,12 +99,9 @@ const handleResendClick = () => {
                 placeholder="••••••••" required autocomplete="current-password"
                 :class="inputClass"
             >
-            <div v-if="password && !isValidPassword(password)" class="text-[var(--color-danger)] text-[13px]">
-                <p>Password must meet the following requirements:</p>
-                <ul class="list-disc list-inside">
-                    <li v-for="(req, index) in passwordRequirements(password)" :key="index">{{ req }}</li>
-                </ul>
-            </div>
+                <p v-if="password && password.length < 8" class="text-[var(--color-danger)] text-[13px]">
+                    Password must be at least 8 characters.
+                </p>
         </div>
 
         <button type="submit" :disabled="!isValidEmail(email) || !isValidPassword(password) || loading" :class="btnPrimary">

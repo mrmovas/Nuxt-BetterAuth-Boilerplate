@@ -54,8 +54,14 @@ async function handleRegister() {
         })
 
         if(!result.success) return emit('error', result.message)
-
         emit('success', result.message)
+        firstName.value = ''
+        lastName.value  = ''
+        email.value     = ''
+        password.value  = ''
+        confirmPassword.value = ''
+        country.value   = ''
+        phoneNumber.value = ''
         emit('go', 'login')
     } catch (e: any) {
         emit('error', e.message || 'Registration failed')

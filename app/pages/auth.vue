@@ -31,14 +31,17 @@ watch(() => route.query.tab, (val) => {
 // Navigate to a tab and clear messages
 function goTo(tab: Tab) {
     activeTab.value = tab
-    errorMessage.value = ''
-    successMessage.value = ''
+    resetToken.value = '' // Clear reset token when switching tabs
     navigateTo({ query: { tab } }, { replace: true })
 }
 
 onMounted(() => {
     if (route.query.passwordChanged === 'true') {
         successMessage.value = 'Password changed successfully. Please log in.'
+        navigateTo({ query: { tab: 'login' } }, { replace: true })
+    }
+    if (route.query.emailVerified === 'true') {
+        successMessage.value = 'Email verified successfully. Please log in.'
         navigateTo({ query: { tab: 'login' } }, { replace: true })
     }
     if (resetToken.value) activeTab.value = 'reset-password'
@@ -51,8 +54,8 @@ onMounted(() => {
     <div class="w-full max-w-[440px] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-10">
 
         <!-- Alerts -->
-        <AlertBox v-if="errorMessage" type="error" :message="errorMessage" class="mb-4" />
-        <AlertBox v-if="successMessage" type="success" :message="successMessage" class="mb-4" />
+        <AuthAlertBox v-if="errorMessage" type="error" :message="errorMessage" class="mb-4" />
+        <AuthAlertBox v-if="successMessage" type="success" :message="successMessage" class="mb-4" />
 
         <!-- Forms -->
         <AuthLoginForm

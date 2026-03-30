@@ -42,8 +42,9 @@ async function handleRegister() {
     if (password.value !== confirmPassword.value) return
     loading.value = true
     emit('error', '')
+    emit('success', '')
     try {
-        await register({
+        const result = await register({
             firstName: firstName.value,
             lastName: lastName.value,
             name: `${firstName.value} ${lastName.value}`,
@@ -52,7 +53,10 @@ async function handleRegister() {
             country: country.value,
             phoneNumber: phoneNumber.value,
         })
-        emit('success', 'Account created! Check your inbox to verify your email.')
+
+        if(!result.success) return emit('error', result.message)
+
+        emit('success', result.message)
         emit('go', 'login')
     } catch (e: any) {
         emit('error', e.message || 'Registration failed')

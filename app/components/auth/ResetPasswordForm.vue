@@ -14,32 +14,51 @@ const emit = defineEmits<{
 
 const email    = ref('')
 const password = ref('')
+const confirmPassword = ref('')
 const loading  = ref(false)
+const isResendCooldown = ref(false)
+const resendCountdown = ref(0)
 
 const inputClass = 'w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded text-[#f0f0f0] font-mono text-sm px-3.5 py-2.5 outline-none focus:border-[var(--color-accent)] transition-colors'
 const labelClass = 'text-[11px] text-[var(--color-muted)] uppercase tracking-wider'
 const btnPrimary = 'w-full mt-1 cursor-pointer font-mono text-sm bg-[var(--color-accent)] text-[var(--color-bg)] font-medium rounded px-5 py-3 hover:opacity-85 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed'
 
 async function handleRequestReset() {
+    if (isResendCooldown.value) return
+
     loading.value = true
     emit('error', '')
+    emit('success', '')
     try {
         await requestPasswordReset(email.value)
-        emit('success', 'If that email exists, a reset link is on its way.')
-        emit('go', 'login')
+        emit('success', 'If that email exists, a reset link has been sent! Check your inbox.')
     } catch (e: any) {
         emit('error', e.message || 'Failed to send reset email')
     } finally {
         loading.value = false
     }
+
+    // Start cooldown
+    isResendCooldown.value = true
+    resendCountdown.value = 60
+
+    const timer = setInterval(() => {
+        resendCountdown.value--
+        if (resendCountdown.value <= 0) {
+            isResendCooldown.value = false
+            clearInterval(timer)
+        }
+    }, 1000)
 }
 
 async function handleResetPassword() {
     loading.value = true
     emit('error', '')
+    emit('success', '')
     try {
-        await resetPassword(props.resetToken, password.value)
-        emit('success', 'Password reset! Please log in.')
+        const result = await resetPassword(props.resetToken, password.value)
+        if(!result.success) return emit('error', result.message)
+        emit('success', result.message)
         password.value = ''
         emit('go', 'login')
     } catch (e: any) {
@@ -54,7 +73,6 @@ async function handleResetPassword() {
     <!-- Request reset link -->
     <form v-if="!resetToken" class="flex flex-col gap-4" @submit.prevent="handleRequestReset">
         <h1 class="font-serif text-[28px] mb-2">Reset your password.</h1>
-        <p class="text-[#f0f0f0] text-[13px]">Enter your email and we'll send a reset link.</p>
 
         <div class="flex flex-col gap-1.5">
             <label :class="labelClass" for="reset-email">Email</label>
@@ -64,8 +82,8 @@ async function handleResetPassword() {
             Please enter a valid email address
         </p>
 
-        <button type="submit" :disabled="!isValidEmail(email) || loading" :class="btnPrimary">
-            {{ loading ? 'Sending…' : 'Send reset link →' }}
+        <button type="submit" :disabled="(!isValidEmail(email) || loading) || isResendCooldown" :class="btnPrimary">
+            {{ isResendCooldown ? `Resend in ${resendCountdown}s` : loading ? 'Sending…' : 'Send reset link →' }}
         </button>
 
         <p class="text-center text-[var(--color-muted)] text-[13px]">
@@ -89,7 +107,15 @@ async function handleResetPassword() {
             </div>
         </div>
 
-        <button type="submit" :disabled="!isValidPassword(password) || loading" :class="btnPrimary">
+        <div class="flex flex-col gap-1.5">
+            <label :class="labelClass" for="confirm-password">Confirm password</label>
+            <input id="confirm-password" v-model="confirmPassword" type="password" placeholder="Confirm your password" required autocomplete="new-password" :class="inputClass">
+            <p v-if="confirmPassword && password !== confirmPassword" class="text-[var(--color-danger)] text-[13px]">
+                Passwords do not match
+            </p>
+        </div>
+
+        <button type="submit" :disabled="!isValidPassword(password) || password !== confirmPassword || loading" :class="btnPrimary">
             {{ loading ? 'Resetting…' : 'Reset password →' }}
         </button>
 

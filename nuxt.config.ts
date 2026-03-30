@@ -21,8 +21,8 @@ export default defineNuxtConfig({
         public: {
             appName: 'auth.',
             appDescription: 'A production-ready authentication frontend built with Nuxt, TypeScript, and Tailwind CSS. Designed to seamlessly integrate with my backend template, Express-BetterAuth-Boilerplate — including signup, login, email verification, password reset, and session management — following best practices and a clean architecture. ',
-            appUrl: 'http://localhost:3000', // change before deploying
-            backendUrl: 'http://localhost:4000', // your Express backend
+            appURL: 'http://localhost:3000', // change before deploying
+            backendURL: 'http://localhost:4000', // your Express backend
         },
     },
 

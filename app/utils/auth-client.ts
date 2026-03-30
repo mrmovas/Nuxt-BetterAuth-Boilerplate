@@ -1,8 +1,10 @@
 import { createAuthClient } from "better-auth/vue"
 import { inferAdditionalFields } from 'better-auth/client/plugins'
 
+const backendUrl = 'http://localhost:4000'
+
 export const authClient = createAuthClient({
-    baseURL: import.meta.env.NUXT_PUBLIC_BACKEND_URL ?? "http://localhost:4000/api/auth", // The base URL of your auth server
+    baseURL: `${backendUrl}/api/auth`, // The base URL of your auth server
 
     plugins: [
         inferAdditionalFields({

@@ -32,23 +32,23 @@ async function handleRequestReset() {
     try {
         await requestPasswordReset(email.value)
         emit('success', 'If that email exists, a reset link has been sent! Check your inbox.')
+
+        // Start cooldown
+        isResendCooldown.value = true
+        resendCountdown.value = 60
+
+        const timer = setInterval(() => {
+            resendCountdown.value--
+            if (resendCountdown.value <= 0) {
+                isResendCooldown.value = false
+                clearInterval(timer)
+            }
+        }, 1000)
     } catch (e: any) {
         emit('error', e.message || 'Failed to send reset email')
     } finally {
         loading.value = false
     }
-
-    // Start cooldown
-    isResendCooldown.value = true
-    resendCountdown.value = 60
-
-    const timer = setInterval(() => {
-        resendCountdown.value--
-        if (resendCountdown.value <= 0) {
-            isResendCooldown.value = false
-            clearInterval(timer)
-        }
-    }, 1000)
 }
 
 async function handleResetPassword() {

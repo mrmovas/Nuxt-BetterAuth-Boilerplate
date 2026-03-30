@@ -47,7 +47,6 @@ async function handleRegister() {
         const result = await register({
             firstName: firstName.value,
             lastName: lastName.value,
-            name: `${firstName.value} ${lastName.value}`,
             email: email.value,
             password: password.value,
             country: country.value,

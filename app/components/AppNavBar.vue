@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-    const session = authClient.useSession()
+    const { user, logout } = useAuth()
 
 </script>
 
@@ -12,16 +12,16 @@
 
         <div class="flex items-center gap-5">
             <!-- Authenticated -->
-            <template v-if="session.data">
+            <template v-if="user">
                 <NuxtLink 
                     to="/profile"
                     class="text-[var(--color-accent)] no-underline hover:underline"
                 >
-                    {{ session.data.user.name?.split(' ')[0] }}
+                    {{ user.name?.split(' ')[0] }}
                 </NuxtLink>
                 <button 
                     class="cursor-pointer font-mono text-sm bg-transparent text-[#f0f0f0] border border-[var(--color-border)] rounded px-3.5 py-1.5 hover:border-[#f0f0f0] transition-colors"
-                    @click="authClient.signOut()"
+                    @click="logout"
                 >
                     Logout
                 </button>

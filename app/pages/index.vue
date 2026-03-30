@@ -1,11 +1,11 @@
 <script setup lang="ts">
     const config = useRuntimeConfig()
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
 
     useSeoMeta({
         title: 'Home',
         ogTitle: `${config.public.appName} — Your app starts here`,
-        ogUrl: config.public.appUrl,
+        ogUrl: config.public.appURL
     })
 </script>
 
@@ -46,7 +46,7 @@
                 </NuxtLink>
                 <button
                     class="cursor-pointer font-mono text-sm bg-transparent text-[#f0f0f0] border border-[var(--color-border)] rounded px-5 py-2.5 hover:border-[#f0f0f0] transition-colors"
-                    @click="authClient.signOut()"
+                    @click="logout"
                 >
                     Logout
                 </button>
@@ -74,7 +74,7 @@
             <a href="https://github.com/mrmovas/Nuxt-BetterAuth-Boilerplate" target="_blank" class="text-[var(--color-accent)] hover:opacity-85 transition-opacity">
                 Frontend
             </a>
-            · <span>Nuxt</span> · <span>TypeScript</span> · <span>Better-Auth's Client</span> · <span>Tailwind</span>
+            · <span>Nuxt</span> · <span>Tailwind</span> · <span>Better-Auth's Client</span> · <span>TypeScript</span>
         </div>
 
         <!-- Backend Stack -->

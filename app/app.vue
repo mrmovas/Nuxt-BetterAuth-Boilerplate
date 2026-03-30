@@ -11,15 +11,15 @@ useSeoMeta({
     ogSiteName: config.public.appName as string,
     ogTitle: config.public.appName as string,
     ogDescription: config.public.appDescription as string,
-    ogImage: `${config.public.appUrl}/og-image.png`,
-    ogUrl: config.public.appUrl as string,
+    ogImage: `${config.public.appURL}/og-image.png`,
+    ogUrl: config.public.appURL as string,
 
     // Twitter Card / X Card
     twitterCard: 'summary_large_image',
     //twitterSite: "" // Twitter username of the website (e.g. @username)
     twitterTitle: config.public.appName as string,
     twitterDescription: config.public.appDescription as string,
-    twitterImage: `${config.public.appUrl}/og-image.png`,
+    twitterImage: `${config.public.appURL}/og-image.png`,
 
     // Bots
     robots: 'index, follow',
@@ -27,7 +27,7 @@ useSeoMeta({
 
 useHead({
     link: [
-        { rel: 'canonical', href: `${config.public.appUrl}${route.path}` },
+        { rel: 'canonical', href: computed(() => `${config.public.appURL}${route.path}`) },
     ],
 })
 

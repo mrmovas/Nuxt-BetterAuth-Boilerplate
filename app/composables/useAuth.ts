@@ -22,11 +22,7 @@ type authReturnType = {
 
 
 export const useAuth = () => {
-    const session = authClient.useSession()
-
-    const user = computed(() => session.value.data?.user)
-    const isLoggedIn = computed(() => !!session.value.data)
-    const isPending = computed(() => session.value.isPending)
+    const { $authSession } = useNuxtApp()
 
     /**
      * Logs out the current user and redirects to the login page
@@ -55,14 +51,17 @@ export const useAuth = () => {
      * @param params - The registration parameters
      * Registers a new user with the provided information
      */
-    const register = async (params: registerParams): Promise<authReturnType> => {
-        const result = await authClient.signUp.email(params);
+    const register = async (params: Omit<registerParams, 'name'>): Promise<authReturnType> => {
+        const result = await authClient.signUp.email({
+            ...params, 
+            name: `${params.firstName} ${params.lastName}`
+        } as registerParams);
         return {
             success: !result.error,
             code: result.error ? result.error.code as string : '',
             message: result.error ? result.error.message as string : 'Registration successful, verification email has been sent to your inbox'
         }
-    };
+    }
 
     /**
      * @param email - The email address of the user requesting a new verification email
@@ -82,7 +81,7 @@ export const useAuth = () => {
     const requestPasswordReset = async (email: string) => {
         await authClient.requestPasswordReset({
             email, 
-            redirectTo: `${window.location.origin}/auth?activeTab=reset-password`
+            redirectTo: `${window.location.origin}/auth?tab=reset-password`
         });
     }
 
@@ -117,10 +116,9 @@ export const useAuth = () => {
     }
 
     return {
-        session,
-        user,
-        isLoggedIn,
-        isPending,
+        user: $authSession.user,
+        isLoggedIn: $authSession.isLoggedIn,
+        isPending: $authSession.isPending,
         logout,
         login,
         register,

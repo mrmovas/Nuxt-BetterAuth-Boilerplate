@@ -1,5 +1,7 @@
 # Nuxt-BetterAuth-Boilerplate
 
+> Current version 0.0.1-alpha - A frontend boilerplate for Nuxt applications using Better-Auth for authentication.
+
 > ℹ️ **Info:**
 > At the moment, this project has just started and is still in development.
 

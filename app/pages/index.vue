@@ -1,6 +1,12 @@
 <script setup lang="ts">
-    const session = authClient.useSession()
+    const config = useRuntimeConfig()
+    const { user } = useAuth()
 
+    useSeoMeta({
+        title: 'Home',
+        ogTitle: `${config.public.appName} — Your app starts here`,
+        ogUrl: config.public.appUrl,
+    })
 </script>
 
 
@@ -28,9 +34,9 @@
         <!-- Actions -->
         <div class="flex gap-3 flex-wrap mb-14 items-center">
             <!-- Authenticated -->
-            <template v-if="session.data">
+            <template v-if="user">
                 <p class="text-[var(--color-muted)]">
-                Welcome back, <strong class="text-[#f0f0f0]">{{ session.data.user.name?.split(' ')[0] }}</strong>
+                Welcome back, <strong class="text-[#f0f0f0]">{{ user.name?.split(' ')[0] }}</strong>
                 </p>
                 <NuxtLink
                     to="/profile"

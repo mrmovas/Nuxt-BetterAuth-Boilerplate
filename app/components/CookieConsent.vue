@@ -26,7 +26,7 @@ function accept() {
                     This site uses essential cookies to keep you logged in and functional.
                 </p>
             </div>
-            <a href="/privacy" class="text-sm text-gray-600 underline underline-offset-2">Learn more</a>
+            <!-- <a href="/privacy" class="text-sm text-gray-600 underline underline-offset-2">Learn more</a> -->
             <button class="text-sm font-medium bg-black text-white rounded-lg px-4 py-1.5 cursor-pointer whitespace-nowrap hover:bg-gray-800 transition-colors flex-shrink-0" @click="accept">
                 I understand
             </button>

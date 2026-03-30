@@ -1,6 +1,9 @@
 import { until } from '@vueuse/core'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+    // Skip on server — session is not available yet, client will rerun this
+    if (import.meta.server) return
+
     const { isLoggedIn, isPending } = useAuth()
 
     // If the auth status is still pending, we can choose to show a loading indicator or simply wait

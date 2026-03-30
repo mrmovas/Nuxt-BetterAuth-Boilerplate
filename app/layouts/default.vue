@@ -3,6 +3,7 @@
         <AppNavBar />
         <div class="flex-1 flex flex-col">
             <slot />
+            <CookieConsent />
         </div>
         <AppFooter />
     </div>

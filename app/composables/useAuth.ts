@@ -107,12 +107,17 @@ export const useAuth = () => {
      * @param currentPassword 
      * @param newPassword 
      */
-    const changePassword = async (currentPassword: string, newPassword: string) => {
-        await authClient.changePassword({
+    const changePassword = async (currentPassword: string, newPassword: string): Promise<authReturnType> => {
+        const result = await authClient.changePassword({
             currentPassword,
             newPassword,
             revokeOtherSessions: true
         });
+        return {
+            success: !result.error,
+            code: result.error ? result.error.code as string : '',
+            message: result.error ? result.error.message as string : 'Password changed successfully'
+        }
     }
 
     return {

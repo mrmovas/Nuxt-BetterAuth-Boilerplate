@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const route  = useRoute()
-
 definePageMeta({
     middleware: 'guest',
     layout: 'auth',
 })
+
+const config = useRuntimeConfig()
+const route  = useRoute()
 
 useSeoMeta({
     title: 'Sign in',

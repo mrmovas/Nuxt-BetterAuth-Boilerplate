@@ -15,6 +15,7 @@
     "better-auth": "^1.5.6",
     "libphonenumber-js": "^1.12.41",
     "nuxt": "^4.4.2",
+    "nuxt-security": "^2.5.1",
     "tailwindcss": "^4.2.2",
     "vue": "^3.5.30",
     "vue-router": "^5.0.4"

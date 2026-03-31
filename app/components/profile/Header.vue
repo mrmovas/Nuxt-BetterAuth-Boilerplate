@@ -13,6 +13,13 @@ defineEmits<{
 
 <template>
 <div class="flex items-center justify-between">
+    <NuxtLink to="/" class="flex items-center gap-2.5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg px-4 py-2 hover:border-[var(--color-accent)] transition-colors cursor-pointer">
+        <svg class="w-3.5 h-3.5 text-[var(--color-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="font-mono text-[13px] text-[#f0f0f0]">Back</span>
+    </NuxtLink>
+
     <h1 class="font-serif text-[28px]">
         Hey, <em class="italic text-[var(--color-accent)]">{{ user?.firstName || user?.name?.split(' ')[0] }}.</em>
     </h1>

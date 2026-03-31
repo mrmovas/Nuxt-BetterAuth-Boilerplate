@@ -5,7 +5,6 @@ definePageMeta({
 })
 
 const config = useRuntimeConfig()
-const { user, logout, changePassword } = useAuth()
 
 useSeoMeta({
     title: 'Profile',
@@ -26,6 +25,9 @@ const profileOpen = ref(false)
         <div class="w-full max-w-[640px] flex flex-col gap-10">
             <ProfileHeader :profileOpen="profileOpen" @update:profileOpen="profileOpen = $event" />
             <ProfilePanel :profileOpen="profileOpen" />
+            <div class="w-full rounded-lg border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
+                <p class="text-gray-600">Recent posts will be added here soon</p>
+            </div>
         </div>
     </main>
 </template>

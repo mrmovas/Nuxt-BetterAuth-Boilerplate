@@ -1,3 +1,5 @@
+import { authClient } from '~/lib/auth'
+
 type loginParams = {
     email: string
     password: string
@@ -28,9 +30,9 @@ export const useAuth = () => {
     /**
      * Logs out the current user and redirects to the login page
      */
-    const logout = async () => {
+    const logout = async (path?: string) => {
         await authClient.signOut()
-        await navigateTo('/auth')
+        await navigateTo(path || '/')
     }
 
     /**

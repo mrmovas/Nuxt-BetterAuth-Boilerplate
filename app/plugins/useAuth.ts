@@ -1,3 +1,5 @@
+import { authClient } from '~/lib/auth'
+
 export default defineNuxtPlugin(() => {
     const session = authClient.useSession()
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
     const config = useRuntimeConfig()
-    const { user, logout } = useAuth()
+    const { user, logout, isPending } = useAuth()
 
     useSeoMeta({
         title: 'Home',
@@ -34,7 +34,7 @@
         <!-- Actions -->
         <div class="flex gap-3 flex-wrap mb-14 items-center">
             <!-- Authenticated -->
-            <template v-if="user">
+            <template v-if="!isPending && user">
                 <p class="text-[var(--color-muted)]">
                 Welcome back, <strong class="text-[#f0f0f0]">{{ user.name?.split(' ')[0] }}</strong>
                 </p>
@@ -46,14 +46,14 @@
                 </NuxtLink>
                 <button
                     class="cursor-pointer font-mono text-sm bg-transparent text-[#f0f0f0] border border-[var(--color-border)] rounded px-5 py-2.5 hover:border-[#f0f0f0] transition-colors"
-                    @click="logout"
+                    @click="logout()"
                 >
                     Logout
                 </button>
             </template>
 
             <!-- Guest -->
-            <template v-else>
+            <template v-else-if="!isPending">
                 <NuxtLink
                     to="/auth?tab=register"
                     class="cursor-pointer font-mono text-sm bg-[var(--color-accent)] text-[var(--color-bg)] font-medium rounded px-5 py-2.5 hover:opacity-85 transition-opacity no-underline"

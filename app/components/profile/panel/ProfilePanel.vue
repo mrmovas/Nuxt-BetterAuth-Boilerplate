@@ -37,7 +37,7 @@ defineProps<{
             <!-- Sign out -->
             <button
                 class="w-full cursor-pointer font-mono text-sm bg-transparent text-[var(--color-muted)] border border-[var(--color-border)] rounded py-2.5 hover:border-[var(--color-danger)] hover:text-[var(--color-danger)] transition-colors"
-                @click="logout"
+                @click="logout()"
             >
                 Sign out
             </button>

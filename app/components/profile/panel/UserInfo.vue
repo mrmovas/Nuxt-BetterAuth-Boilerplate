@@ -29,8 +29,6 @@ const btnSecondary = 'cursor-pointer font-mono text-sm bg-transparent text-[#f0f
                 <span v-if="user?.emailVerified" class="text-[var(--color-ok)]">✓ Verified</span>
                 <span v-else class="flex items-center gap-2">
                     <span class="text-[var(--color-danger)]">✗ Not verified</span>
-                    <span class="text-[var(--color-muted)]">·</span>
-                    <NuxtLink to="/auth?tab=resend" class="text-[var(--color-accent)] hover:underline text-[13px]">Resend link</NuxtLink>
                 </span>
             </dd>
 

@@ -57,7 +57,8 @@ export const useAuth = () => {
     const register = async (params: Omit<registerParams, 'name'>): Promise<authReturnType> => {
         const result = await authClient.signUp.email({
             ...params, 
-            name: `${params.firstName} ${params.lastName}`
+            name: `${params.firstName} ${params.lastName}`,
+            callbackURL: `${window.location.origin}/auth?emailVerified=true`
         } as registerParams);
         return {
             success: !result.error,

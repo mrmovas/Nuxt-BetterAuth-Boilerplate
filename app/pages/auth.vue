@@ -11,7 +11,7 @@ const route  = useRoute()
 useSeoMeta({
     title: 'Sign in',
     ogTitle: `Sign in · ${config.public.appName}`,
-    ogUrl: `${config.public.appUrl}/auth`,
+    ogUrl: `${config.public.appURL}/auth`,
     robots: 'noindex, nofollow',
 })
 

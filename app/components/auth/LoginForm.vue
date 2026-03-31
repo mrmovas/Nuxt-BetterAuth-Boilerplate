@@ -10,6 +10,7 @@ const emit = defineEmits<{
 
 const email    = ref('')
 const password = ref('')
+const rememberMe = ref(false)
 const loading  = ref(false)
 const showResendVerificationButton = ref(false)
 const isResendCooldown = ref(false)
@@ -25,7 +26,7 @@ async function handleLogin() {
     emit('error', '')
     emit('success', '')
     try {
-        const result = await login({ email: email.value, password: password.value })
+        const result = await login({ email: email.value, password: password.value, rememberMe: rememberMe.value })
         if (!result.success) {
             emit('error', result.message)
             if(result.code === 'EMAIL_NOT_VERIFIED') {
@@ -103,6 +104,15 @@ const handleResendClick = () => {
                     Password must be at least 8 characters.
                 </p>
         </div>
+
+        <label class="group inline-flex w-fit items-center gap-2.5 rounded-md border border-[var(--color-border)] px-3 py-2 text-[13px] text-[var(--color-muted)] select-none cursor-pointer transition-colors hover:border-[var(--color-accent)] hover:text-[#f0f0f0]">
+            <input
+                v-model="rememberMe"
+                type="checkbox"
+                class="h-4 w-4 cursor-pointer appearance-none rounded border border-[var(--color-border)] bg-[var(--color-bg)] transition-colors checked:border-[var(--color-accent)] checked:bg-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
+            >
+            <span class="leading-none">Remember me</span>
+        </label>
 
         <button type="submit" :disabled="!isValidEmail(email) || !isValidPassword(password) || loading" :class="btnPrimary">
             {{ loading ? 'Signing in…' : 'Sign in →' }}

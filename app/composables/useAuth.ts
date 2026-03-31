@@ -1,6 +1,7 @@
 type loginParams = {
     email: string
     password: string
+    rememberMe?: boolean
 }
 
 type registerParams = {

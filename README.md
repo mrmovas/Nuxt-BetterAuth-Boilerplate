@@ -1,6 +1,6 @@
 # Nuxt-BetterAuth-Boilerplate
 
-> **Current version 1.0.1-beta** A frontend boilerplate for Nuxt applications using Better-Auth for authentication.
+> **Current version 1.1.0** A frontend boilerplate for Nuxt applications using Better-Auth for authentication.
 
 This project is being created to learn and provide a template for me and others to quickly set up a frontend application using [Nuxt](https://nuxt.com/) to avoid having to rewrite the same code for every project, to help focus on the unique features of the application and not have to worry about building from scratch every time.
 

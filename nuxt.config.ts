@@ -12,7 +12,23 @@ export default defineNuxtConfig({
     vite: {
         plugins: [
             tailwindcss(),
-        ]
+        ],
+        optimizeDeps: {
+            include: [
+                'better-auth/vue',
+                'better-auth/client/plugins',
+            ]
+        }
+    },
+    $development: {
+        vite: {
+            optimizeDeps: {
+                include: [
+                    '@vue/devtools-core',
+                    '@vue/devtools-kit',
+                ]
+            }
+        }
     },
 
 

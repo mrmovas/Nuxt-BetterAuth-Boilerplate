@@ -6,6 +6,12 @@ This project is being created to learn and provide a template for me and others 
 
 This boilerplate is using [Better-Auth](https://better-auth.com/) Client's library for handling authentication; it uses TypeScript for type safety and a better development experience, and it's designed to seamlessly integrate with my backend template, [Express-BetterAuth-Boilerplate](https://github.com/mrmovas/Express-BetterAuth-Boilerplate)
 
+> ⚠️ **Archived Notice:**
+> I've decided to stop active development on this repository and have moved to a new frontend client-side SPA: [Vue3-BetterAuth-Template](https://github.com/mrmovas/Vue3-BetterAuth-Template), which shares the same core logic as this project.
+> This Nuxt project remains fully functional and is a solid starting point for a Nuxt + BetterAuth setup.
+
+
+![Nuxt-BetterAuth-Boilerplate preview image](./docs/image.jpg)
 ---
 
 ## Tech Stack

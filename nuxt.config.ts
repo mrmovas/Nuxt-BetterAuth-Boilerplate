@@ -17,6 +17,7 @@ export default defineNuxtConfig({
             include: [
                 'better-auth/vue',
                 'better-auth/client/plugins',
+                'libphonenumber-js'
             ]
         }
     },
